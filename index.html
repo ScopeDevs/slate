@@ -252,7 +252,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>PeerPal API allows you to obtain data pertaining to prospective parents and parent ambassadors that use PeerPal. If you are interested in partnering with us and using our API, please send us an email at pranav@peerpalschools.com or brennan@peerpalschools.com.</p>
 
-<p>We have language bindings for JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>We have language bindings for only JavaScript! You can view code examples in the dark area to the right, and are looking to add more language guides in the future.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>We will manually generate you an API Key, which you can use to make requests and access all the endpoints below.</p>
 
@@ -260,33 +260,40 @@
 
 <p>PeerPal expects for the API key to be included in all API requests to the server in the request body that looks like the following:</p>
 
-<p><code>{apiKey: &quot;abcedefg&quot;}</code></p>
+<p><code>{apiKey: &quot;yourKEY&quot;}</code></p>
 
 <aside class="warning">
-You must replace <code>abcedefg</code> with your personal API key.
+You must replace <code>yourKEY</code> with your personal API key.
 </aside>
-<h1 id='core-api-requests'>Core API Requests</h1><h2 id='get-your-organization-information'>Get your organization information</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
+<h1 id='core-api-requests'>Core API Requests</h1><h2 id='get-your-organization-information'>Get your organization information</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// Declare variables to make the request from your server to our API</span>
+<span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"https"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">"https://www.peerpalapi.com/vendor/"</span><span class="p">;</span>
 
+<span class="c1">// Set headers to bypass CORS issues and returning JSON data</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
   <span class="na">Accept</span><span class="p">:</span> <span class="s2">"*/*"</span>
 <span class="p">};</span>
 
+<span class="c1">// A JavaScript object with the apiKey inside of it</span>
 <span class="kr">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"abcedefg"</span>
+  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"yourKEY"</span>
 <span class="p">};</span>
 
+<span class="c1">// Use node-fetch to make a POST request to the url</span>
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span>
 <span class="p">})</span>
+  <span class="c1">// Handle the first promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
   <span class="p">})</span>
+  <span class="c1">// Handle the second promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">body</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Error handling for if no data is in the response sent back.</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
       <span class="kr">const</span> <span class="nx">er</span> <span class="o">=</span> <span class="p">{</span> <span class="na">error</span><span class="p">:</span> <span class="s2">"nothing works"</span> <span class="p">};</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">er</span><span class="p">);</span>
@@ -307,7 +314,7 @@ You must replace <code>abcedefg</code> with your personal API key.
       </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jon@PeerpalSchools.com"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcedefg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yourKEY"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PeerPal"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-04T04:13:42.686+00:00"</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -325,36 +332,43 @@ You must replace <code>abcedefg</code> with your personal API key.
 </thead><tbody>
 <tr>
 <td>apiKey</td>
-<td>abcedefg</td>
+<td>&quot;yourKEY&quot;</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
 You should be authenticated by now!
 </aside>
-<h2 id='get-parent-ambassadors-per-school'>Get Parent Ambassadors per School</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
+<h2 id='get-parent-ambassadors-per-school'>Get Parent Ambassadors per School</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// Declare variables to make the request from your server to our API</span>
+<span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"https"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">"https://www.peerpalapi.com/vendor/CurrentParents"</span><span class="p">;</span>
 
+<span class="c1">// Set headers to bypass CORS issues and returning JSON data</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
   <span class="na">Accept</span><span class="p">:</span> <span class="s2">"*/*"</span>
 <span class="p">};</span>
 
+<span class="c1">// A JavaScript object with the apiKey inside of it</span>
 <span class="kr">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"abcedefg"</span><span class="p">,</span>
-  <span class="na">organization</span><span class="p">:</span> <span class="s2">"Bryn Mawr School"</span>
+  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"yourKEY"</span><span class="p">,</span>
+  <span class="na">organization</span><span class="p">:</span> <span class="s2">"Demo"</span>
 <span class="p">};</span>
 
+<span class="c1">// Use node-fetch to make a POST request to the url</span>
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span>
 <span class="p">})</span>
+  <span class="c1">// Handle the first promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
   <span class="p">})</span>
+  <span class="c1">// Handle the second promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">body</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Error handling for if no data is in the response sent back.</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
       <span class="kr">const</span> <span class="nx">er</span> <span class="o">=</span> <span class="p">{</span> <span class="na">error</span><span class="p">:</span> <span class="s2">"nothing works"</span> <span class="p">};</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">er</span><span class="p">);</span>
@@ -370,7 +384,7 @@ You should be authenticated by now!
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5d67579ad227c80017cc789f"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JDoe@brynmawrschool.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JDoe@Demo.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
   </span><span class="s2">"imageURL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/peerpal/image/upload/v1579146163/e6ygfbg6rrskdmnjqi9o.jpg"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -391,36 +405,43 @@ This endpoint retrieves parent ambassadors for a specific school.
 </thead><tbody>
 <tr>
 <td>apiKey</td>
-<td>abcedefg</td>
+<td>&quot;yourKEY&quot;</td>
 </tr>
 <tr>
 <td>organization</td>
-<td>Bryn Mawr School</td>
+<td>&quot;Demo&quot;</td>
 </tr>
 </tbody></table>
-<h2 id='get-prospective-parents-per-school'>Get Prospective Parents per School</h2><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
+<h2 id='get-prospective-parents-per-school'>Get Prospective Parents per School</h2><pre class="highlight javascript tab-javascript"><code><span class="c1">// Declare variables to make the request from your server to our API</span>
+<span class="kr">const</span> <span class="nx">fetch</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-fetch"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"https"</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">"https://www.peerpalapi.com/vendor/ProspectiveParents"</span><span class="p">;</span>
 
+<span class="c1">// Set headers to bypass CORS issues and returning JSON data</span>
 <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
   <span class="na">Accept</span><span class="p">:</span> <span class="s2">"*/*"</span>
 <span class="p">};</span>
 
+<span class="c1">// A JavaScript object with the apiKey inside of it</span>
 <span class="kr">const</span> <span class="nx">inputBody</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"abcedefg"</span><span class="p">,</span>
-  <span class="na">organization</span><span class="p">:</span> <span class="s2">"Bryn Mawr School"</span>
+  <span class="na">apiKey</span><span class="p">:</span> <span class="s2">"yourKEY"</span><span class="p">,</span>
+  <span class="na">organization</span><span class="p">:</span> <span class="s2">"Demo"</span>
 <span class="p">};</span>
 
+<span class="c1">// Use node-fetch to make a POST request to the url</span>
 <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">inputBody</span>
 <span class="p">})</span>
+  <span class="c1">// Handle the first promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
   <span class="p">})</span>
+  <span class="c1">// Handle the second promise returned</span>
   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">body</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Error handling for if no data is in the response sent back.</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
       <span class="kr">const</span> <span class="nx">er</span> <span class="o">=</span> <span class="p">{</span> <span class="na">error</span><span class="p">:</span> <span class="s2">"nothing works"</span> <span class="p">};</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">er</span><span class="p">);</span>
@@ -454,11 +475,11 @@ This endpoint retrieves the prospective parents for a specific school
 </thead><tbody>
 <tr>
 <td>apiKey</td>
-<td>abcedefg</td>
+<td>&quot;yourKEY&quot;</td>
 </tr>
 <tr>
 <td>organization</td>
-<td>Bryn Mawr School</td>
+<td>&quot;Demo&quot;</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
@@ -499,10 +520,6 @@ The PeerPal API uses the following error codes:
 <tr>
 <td>410</td>
 <td>Deleted -- The item requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>unhandled error exception.</td>
 </tr>
 <tr>
 <td>429</td>
