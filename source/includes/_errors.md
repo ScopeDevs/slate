@@ -13,7 +13,6 @@ The PeerPal API uses the following error codes:
 | 405        | Method Not Allowed -- You tried to access a route with an invalid method.                 |
 | 406        | Not Acceptable -- You requested a format that isn't JSON.                                 |
 | 410        | Deleted -- The item requested has been removed from our servers.                          |
-| 418        | unhandled error exception.                                                                |
 | 429        | Too Many Requests -- You're requesting too many times! Slow down!                         |
 | 500        | Internal Server Error -- We had a problem with our server. Try again later.               |
 | 503        | Service Unavailable -- We're temporarily offline for maintenance. Please try again later. |

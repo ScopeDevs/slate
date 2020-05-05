@@ -17,7 +17,7 @@ search: true
 
 PeerPal API allows you to obtain data pertaining to prospective parents and parent ambassadors that use PeerPal. If you are interested in partnering with us and using our API, please send us an email at pranav@peerpalschools.com or brennan@peerpalschools.com.
 
-We have language bindings for JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings for only JavaScript! You can view code examples in the dark area to the right, and are looking to add more language guides in the future.
 
 # Authentication
 
@@ -27,10 +27,10 @@ PeerPal uses API keys to allow access to the API.
 
 PeerPal expects for the API key to be included in all API requests to the server in the request body that looks like the following:
 
-`{apiKey: "abcedefg"}`
+`{apiKey: "yourKEY"}`
 
 <aside class="warning">
-You must replace <code>abcedefg</code> with your personal API key.
+You must replace <code>yourKEY</code> with your personal API key.
 </aside>
 
 # Core API Requests
@@ -38,28 +38,35 @@ You must replace <code>abcedefg</code> with your personal API key.
 ## Get your organization information
 
 ```javascript
+// Declare variables to make the request from your server to our API
 const fetch = require("node-fetch");
 const https = require("https");
 const url = "https://www.peerpalapi.com/vendor/";
 
+// Set headers to bypass CORS issues and returning JSON data
 const headers = {
   "Content-Type": "application/json",
   Accept: "*/*"
 };
 
+// A JavaScript object with the apiKey inside of it
 const inputBody = {
-  apiKey: "abcedefg"
+  apiKey: "yourKEY"
 };
 
+// Use node-fetch to make a POST request to the url
 fetch(url, {
   method: "POST",
   headers: headers,
   body: inputBody
 })
+  // Handle the first promise returned
   .then(res => {
     return res.json();
   })
+  // Handle the second promise returned
   .then(body => {
+    // Error handling for if no data is in the response sent back.
     if (!body) {
       const er = { error: "nothing works" };
       console.log(er);
@@ -81,7 +88,7 @@ fetch(url, {
       "last": "Doe",
       "email": "Jon@PeerpalSchools.com"
     },
-    "apiKey": "abcedefg",
+    "apiKey": "yourKEY",
     "name": "PeerPal",
     "createdDate": "2019-10-04T04:13:42.686+00:00"
   }
@@ -98,7 +105,7 @@ This endpoint retrieves all information stored about your organization
 
 | body   | Description |
 | ------ | ----------- |
-| apiKey | abcedefg    |
+| apiKey | "yourKEY"   |
 
 <aside class="success">
 You should be authenticated by now!
@@ -107,29 +114,36 @@ You should be authenticated by now!
 ## Get Parent Ambassadors per School
 
 ```javascript
+// Declare variables to make the request from your server to our API
 const fetch = require("node-fetch");
 const https = require("https");
 const url = "https://www.peerpalapi.com/vendor/CurrentParents";
 
+// Set headers to bypass CORS issues and returning JSON data
 const headers = {
   "Content-Type": "application/json",
   Accept: "*/*"
 };
 
+// A JavaScript object with the apiKey inside of it
 const inputBody = {
-  apiKey: "abcedefg",
-  organization: "Bryn Mawr School"
+  apiKey: "yourKEY",
+  organization: "Demo"
 };
 
+// Use node-fetch to make a POST request to the url
 fetch(url, {
   method: "POST",
   headers: headers,
   body: inputBody
 })
+  // Handle the first promise returned
   .then(res => {
     return res.json();
   })
+  // Handle the second promise returned
   .then(body => {
+    // Error handling for if no data is in the response sent back.
     if (!body) {
       const er = { error: "nothing works" };
       console.log(er);
@@ -146,7 +160,7 @@ fetch(url, {
   "id": "5d67579ad227c80017cc789f",
   "first": "Jane",
   "last": "Doe",
-  "email": "JDoe@brynmawrschool.com",
+  "email": "JDoe@Demo.com",
   "profile": {},
   "imageURL": "http://res.cloudinary.com/peerpal/image/upload/v1579146163/e6ygfbg6rrskdmnjqi9o.jpg"
 }
@@ -164,37 +178,44 @@ This endpoint retrieves parent ambassadors for a specific school.
 
 ### POST request body
 
-| body         | Description      |
-| ------------ | ---------------- |
-| apiKey       | abcedefg         |
-| organization | Bryn Mawr School |
+| body         | Description |
+| ------------ | ----------- |
+| apiKey       | "yourKEY"   |
+| organization | "Demo"      |
 
 ## Get Prospective Parents per School
 
 ```javascript
+// Declare variables to make the request from your server to our API
 const fetch = require("node-fetch");
 const https = require("https");
 const url = "https://www.peerpalapi.com/vendor/ProspectiveParents";
 
+// Set headers to bypass CORS issues and returning JSON data
 const headers = {
   "Content-Type": "application/json",
   Accept: "*/*"
 };
 
+// A JavaScript object with the apiKey inside of it
 const inputBody = {
-  apiKey: "abcedefg",
-  organization: "Bryn Mawr School"
+  apiKey: "yourKEY",
+  organization: "Demo"
 };
 
+// Use node-fetch to make a POST request to the url
 fetch(url, {
   method: "POST",
   headers: headers,
   body: inputBody
 })
+  // Handle the first promise returned
   .then(res => {
     return res.json();
   })
+  // Handle the second promise returned
   .then(body => {
+    // Error handling for if no data is in the response sent back.
     if (!body) {
       const er = { error: "nothing works" };
       console.log(er);
@@ -226,7 +247,7 @@ This endpoint retrieves the prospective parents for a specific school
 
 ### Request body
 
-| body         | Description      |
-| ------------ | ---------------- |
-| apiKey       | abcedefg         |
-| organization | Bryn Mawr School |
+| body         | Description |
+| ------------ | ----------- |
+| apiKey       | "yourKEY"   |
+| organization | "Demo"      |
