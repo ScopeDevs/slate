@@ -21,7 +21,7 @@ We have language bindings for only JavaScript! You can view code examples in the
 
 # Authentication
 
-We will manually generate you an API Key, which you can use to make requests and access all the endpoints below.
+We will manually generate an API Key, which you can use to make requests and access all the endpoints below.
 
 PeerPal uses API keys to allow access to the API.
 
